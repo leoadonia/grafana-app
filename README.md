@@ -8,7 +8,7 @@
 
 例如，如下是使用`grafana`绘制的系统剩余磁盘的变化趋势:
 
-![grafana-graph.png-41.6kB][../image/grafana-graph.png]
+![grafana-graph](image/grafana-graph.png)
 
 ## 提取图表
 
