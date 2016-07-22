@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Grafana App Dashboard</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+
+	<div class="container">
+		<h1>Grafana App Dashboard</h1>
+
+		<div class="form-group">
+	        <div class="input-group date form_datetime col-md-3" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" id="datetimepicker1">
+	            <input class="form-control" size="16" type="text" value="" readonly placeholder="开始时间">
+	            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	        </div>
+			<input type="hidden" id="dtp_input1" value="" />
+	    </div>
+
+	    <div class="form-group">
+	        <div class="input-group date form_datetime col-md-3" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input2" id="datetimepicker2">
+	            <input class="form-control" size="16" type="text" value="" readonly placeholder="结束时间">
+	            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	        </div>
+			<input type="hidden" id="dtp_input2" value="" />
+	    </div>
+
+	    <button class="btn-default btn btn-sm" id="search-btn">Search</button>
+
+	    <div class="embed-responsive embed-responsive-4by3" id="grafana-graph">
+	    </div>
+	</div>
+
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../js/locales/bootstrap-datetimepicker.fr.js"></script>
+
+	<script>
+		$('.form_datetime').datetimepicker({
+	        language: 'fr',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 0,
+	        showMeridian: 1
+	    });
+
+	    $("#search-btn").click(function() {
+	    	var begindate = $('#datetimepicker1').data('datetimepicker').getDate().getTime();
+	    	var enddate = $('#datetimepicker2').data('datetimepicker').getDate().getTime();
+
+	    	var url = "http://192.168.102.16:3000/dashboard-solo/db/new-dashboard?theme=light&panelId=3&from=" + begindate + "&to=" + enddate;
+
+	    	$("#grafana-graph").append("<iframe src=\"" + url + "\"" + "></iframe>");
+	    })
+	</script>
+</body>
+</html>
